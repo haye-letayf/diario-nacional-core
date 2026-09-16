@@ -37,7 +37,7 @@ The legacy system stays live and untouched while this is built — there is exac
 
 ## Environments
 
-Local (LocalWP) → staging → Jorge's existing cPanel production, same pattern as OpenREAL. Nothing gets pushed to any shared branch or deployed without Jorge's explicit go-ahead — he drives commits/pushes/deploys himself; treat that as the default even when it would be faster to do it directly.
+Local (LocalWP) → staging (`dev.diarionacional.com.mx`, deployed via cPanel Git Version Control pulling from this repo's `main`) → Jorge's existing cPanel production at `diarionacional.com.mx` (cutover process TBD, deliberately deferred until staging is a verified equivalent of the legacy system). Same pattern as OpenREAL. Nothing gets pushed to any shared branch or deployed without Jorge's explicit go-ahead — he drives commits/pushes/deploys himself (the "Pull or Deploy" button in cPanel GVC); treat that as the default even when it would be faster to do it directly.
 
 ## Status
 
