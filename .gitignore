@@ -1,0 +1,17 @@
+# Secretos y configuración local — nunca al repo
+.env
+.env.*
+wp-config.php
+*secrets*.php
+credentials.json
+
+# Dependencias (si se agrega Composer más adelante, ej. Stripe SDK)
+/vendor/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+error_log
