@@ -37,9 +37,11 @@ The legacy system stays live and untouched while this is built — there is exac
 
 ## Environments
 
-Local (LocalWP) → staging (`dev.diarionacional.com.mx/a`, deployed via cPanel Git Version Control) → Jorge's existing cPanel production at `diarionacional.com.mx` (cutover process TBD, deliberately deferred until staging is a verified equivalent of the legacy system). Same pattern as OpenREAL. Nothing gets pushed to any shared branch or deployed without Jorge's explicit go-ahead — he drives commits/pushes/deploys himself; treat that as the default even when it would be faster to do it directly.
+Three environments: **local** (LocalWP) → **staging** (`dev.diarionacional.com.mx/a`) → Jorge's existing cPanel **production** at `diarionacional.com.mx` (cutover process TBD, deliberately deferred until staging is a verified equivalent of the legacy system). Same pattern as OpenREAL. Nothing gets pushed to any shared branch or deployed without Jorge's explicit go-ahead — he drives commits/pushes/deploys himself; treat that as the default even when it would be faster to do it directly.
 
-**cPanel Git Version Control mechanics** (this tripped us up once — document it so it doesn't again): the "Repository Path" set in GVC (`/home/edictosyavisosno/repositories/diario-nacional-core`) is just where cPanel keeps its working copy — it is *not* where WordPress reads the plugin from. `.cpanel.yml` in this repo's root defines the actual deployment target via a `deployment.tasks` copy step; without it, GVC's "Deploy HEAD Commit" button stays disabled. Current deploy target:
+**Local**: a LocalWP site named `diario-nacional-local` (`~/Local Sites/diario-nacional-local/`). This repo and `diario-nacional-theme` are *not* copied into its `wp-content` — they're symlinked in place (`wp-content/plugins/diario-nacional-core` → this repo, `wp-content/themes/diario-nacional-theme` → the theme repo), so editing files here shows up immediately in the local site with no deploy step. This is where day-to-day work should be verified before ever touching staging.
+
+**Staging** deploys via cPanel Git Version Control, which is not a straight git push-to-deploy (this tripped us up once — document it so it doesn't again): the "Repository Path" set in GVC (`/home/edictosyavisosno/repositories/diario-nacional-core`) is just where cPanel keeps its working copy — it is *not* where WordPress reads the plugin from. `.cpanel.yml` in this repo's root defines the actual deployment target via a `deployment.tasks` copy step; without it, GVC's "Deploy HEAD Commit" button stays disabled. Current deploy target:
 
 ```
 /home/edictosyavisosno/public_html/dev.diarionacional.com.mx/a/wp-content/plugins/diario-nacional-core/
