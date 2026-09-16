@@ -37,7 +37,15 @@ The legacy system stays live and untouched while this is built — there is exac
 
 ## Environments
 
-Local (LocalWP) → staging (`dev.diarionacional.com.mx`, deployed via cPanel Git Version Control pulling from this repo's `main`) → Jorge's existing cPanel production at `diarionacional.com.mx` (cutover process TBD, deliberately deferred until staging is a verified equivalent of the legacy system). Same pattern as OpenREAL. Nothing gets pushed to any shared branch or deployed without Jorge's explicit go-ahead — he drives commits/pushes/deploys himself (the "Pull or Deploy" button in cPanel GVC); treat that as the default even when it would be faster to do it directly.
+Local (LocalWP) → staging (`dev.diarionacional.com.mx/a`, deployed via cPanel Git Version Control) → Jorge's existing cPanel production at `diarionacional.com.mx` (cutover process TBD, deliberately deferred until staging is a verified equivalent of the legacy system). Same pattern as OpenREAL. Nothing gets pushed to any shared branch or deployed without Jorge's explicit go-ahead — he drives commits/pushes/deploys himself; treat that as the default even when it would be faster to do it directly.
+
+**cPanel Git Version Control mechanics** (this tripped us up once — document it so it doesn't again): the "Repository Path" set in GVC (`/home/edictosyavisosno/repositories/diario-nacional-core`) is just where cPanel keeps its working copy — it is *not* where WordPress reads the plugin from. `.cpanel.yml` in this repo's root defines the actual deployment target via a `deployment.tasks` copy step; without it, GVC's "Deploy HEAD Commit" button stays disabled. Current deploy target:
+
+```
+/home/edictosyavisosno/public_html/dev.diarionacional.com.mx/a/wp-content/plugins/diario-nacional-core/
+```
+
+Deploy flow after every push: GVC → **Update from Remote** → **Deploy HEAD Commit**. When production cutover happens, `.cpanel.yml` needs a second deploy target added (or swapped) for `diarionacional.com.mx` — same pattern OpenREAL uses for its `staging` vs `main` branches having different `.cpanel.yml` deploy lists, don't let one overwrite the other's target when that day comes.
 
 ## Status
 

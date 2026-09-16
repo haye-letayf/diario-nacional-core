@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/edictosyavisosno/public_html/dev.diarionacional.com.mx/a/wp-content/plugins/diario-nacional-core/
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/cp -R * $DEPLOYPATH
